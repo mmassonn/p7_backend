@@ -20,8 +20,8 @@ login(token="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")
 tfidf_vectorizer_file = hf_hub_download(repo_id="mmassonn/Badbuzzert", filename="tfidf_vectorizer.joblib")
 vectorizer = load(tfidf_vectorizer_file)
 #  Charger le modèle
-model_file = hf_hub_download(repo_id="mmassonn/Badbuzzert", filename="model")
-model = xgb.Booster()
+model_file = hf_hub_download(repo_id="mmassonn/Badbuzzert", filename="xgb_model.model")
+model = xgb.XGBClassifier()
 model.load_model(model_file)
 
 # Prétraitement
@@ -125,9 +125,9 @@ def predict():
 
     # Tokenisation
     text_preprocessed = preprocess_text(text)
+    text_preprocessed = [text_preprocessed]
     X_test_lr = vectorizer.transform(text_preprocessed)
-    y_preds = model.predict(X_test_lr)
-
+    y_preds = model.predict(X_test_lr.toarray())
     # Mapping de l'ID de classe vers une étiquette (à adapter selon votre modèle)
     labels = {
         0: "Le sentiment de ce tweet est negatif", 
