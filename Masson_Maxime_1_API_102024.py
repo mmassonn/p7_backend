@@ -1,6 +1,5 @@
 # importer le module
-from flask import Flask
-from flask import request, jsonify
+from flask import Flask, request, jsonify
 from huggingface_hub import login, hf_hub_download
 import xgboost as xgb
 import re
@@ -9,10 +8,9 @@ nltk.download('wordnet')
 nltk.download('stopwords')
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
-from nltk.tokenize import sent_tokenize
-from joblib import dump, load
+from joblib import load
 
-# créer l'object application
+# Créer l'object application
 app = Flask(__name__, template_folder='templates')
 
 # Remplacez par vos clés d'API Hugging Face et les noms de votre tokenizer et modèle
@@ -27,6 +25,7 @@ model = xgb.Booster()
 model.load_model(model_file)
 
 # Prétraitement
+
 # Definir le dictionnaire contenant les émojis avec leurs significations.
 emojis = {':)': 'smile', ':-)': 'smile', ';d': 'wink', ':-E': 'vampire', ':(': 'sad',
           ':-(': 'sad', ':-<': 'sad', ':P': 'raspberry', ':O': 'surprised',
