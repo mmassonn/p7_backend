@@ -117,7 +117,7 @@ def preprocess_text(tweet: str,
 
     return tweetwords
 
-test = "I was so disappointed with this product. The quality is terrible and it broke after only a week. Don't waste your money!"
+text = "I was so disappointed with this product. The quality is terrible and it broke after only a week. Don't waste your money!"
 
 # Teste le pré-traitement des données
 def test_pre_processing(text):
