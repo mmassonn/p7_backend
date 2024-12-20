@@ -138,5 +138,43 @@ def predict():
 
     return jsonify({'prediction': predicted_label})
 
+from azure.monitor.opentelemetry import configure_azure_monitor
+from opentelemetry import trace
+import logger
+from http_exceptions import HTTPException
+
+# Configurer Azure Monitor pour OpenTelemetry
+configure_azure_monitor()
+
+# Obtenir un tracer pour générer des spans
+tracer = trace.get_tracer(__name__)
+
+@app.post("/log_trace")
+def log_trace():
+    data = request.get_json(force=True)
+    text = data['text']
+    predicted_sentiment = data['predicted_sentiment']
+    """
+    Endpoint pour enregistrer une trace en cas de prédiction incorrecte.
+    """
+    try:
+        with tracer.start_as_current_span("PredictionErrorTrace") as span:
+            # Ajouter les attributs au span
+            span.set_attribute("event.type", "prediction_incorrect")
+            span.set_attribute("text", text)
+            span.set_attribute("predicted_sentiment", predicted_sentiment)
+            span.set_attribute("message", "Prédiction signalée comme incorrecte par l'utilisateur.")
+
+            # Log dans la console pour confirmation
+            logger.warning(f"Prédiction incorrecte signalée : {text} "
+                           f"(Sentiment : {predicted_sentiment})")
+
+        return {"message": "Trace enregistrée avec succès dans Azure Application Insight"}
+
+    except Exception as e:
+        logger.error(f"Erreur lors de l'enregistrement de la trace : {e}")
+        raise HTTPException(status_code=500, detail="Erreur interne lors de l'enregistrement de la trace.")
+
+
 if __name__ == '__main__':
     app.run(debug=True)
