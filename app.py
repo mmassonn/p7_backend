@@ -14,7 +14,7 @@ from joblib import load
 app = Flask(__name__, template_folder='templates')
 
 # Remplacez par vos clés d'API Hugging Face et les noms de votre tokenizer et modèle
-login(token="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")
+login(token="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")
 
 #  Charger le tfidf_vectorizer
 tfidf_vectorizer_file = hf_hub_download(repo_id="mmassonn/Badbuzzert", filename="tfidf_vectorizer.joblib")
