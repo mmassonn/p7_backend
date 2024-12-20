@@ -9,11 +9,12 @@ nltk.download('stopwords')
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 
+login(token="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")
+
 @pytest.fixture
 
 # Teste le chargement du vectoriseur.
 def test_model_loading():
-    login(token="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")
     tfidf_vectorizer_file = hf_hub_download(repo_id="mmassonn/Badbuzzert", filename="tfidf_vectorizer.joblib")
     vectorizer = load(tfidf_vectorizer_file)
     # Vérifie que le modèle a été chargé correctement
