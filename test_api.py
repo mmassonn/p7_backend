@@ -117,16 +117,14 @@ def preprocess_text(tweet: str,
 
     return tweetwords
 
-text = "I was so disappointed with this product. The quality is terrible and it broke after only a week. Don't waste your money!"
-
 # Teste le pré-traitement des données
-def test_pre_processing(text):
-    text_preprocessed = preprocess_text(text)
+def test_pre_processing():
+    text_preprocessed = preprocess_text("I was so disappointed with this product.")
     # Vérifie que le DataFrame n'est pas vide
     assert text_preprocessed is not None, "Erreur dans le pré-traitement."
 
 # Teste la fonction de prédiction de l'API
-def test_prediction(text):
+def test_prediction():
     login(token="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")
     # Charger le Tokenizeur
     tfidf_vectorizer_file = hf_hub_download(repo_id="mmassonn/Badbuzzert", filename="tfidf_vectorizer.joblib")
@@ -136,7 +134,7 @@ def test_prediction(text):
     model = xgb.XGBClassifier()
     model.load_model(model_file)
     # Tokenisation
-    text_preprocessed = preprocess_text(text)
+    text_preprocessed = preprocess_text("I was so disappointed with this product.")
     text_preprocessed = [text_preprocessed]
     X_test_lr = vectorizer.transform(text_preprocessed)
     # Prédiction
