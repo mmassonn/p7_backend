@@ -9,12 +9,11 @@ nltk.download('stopwords')
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 
-login(token="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")
-
 @pytest.fixture
 
 # Teste le chargement du vectoriseur.
 def test_model_loading():
+    login(token="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")
     tfidf_vectorizer_file = hf_hub_download(repo_id="mmassonn/Badbuzzert", filename="tfidf_vectorizer.joblib")
     vectorizer = load(tfidf_vectorizer_file)
     # Vérifie que le modèle a été chargé correctement
@@ -22,7 +21,7 @@ def test_model_loading():
 
 # Teste le chargement du modèle.
 def test_model_loading():
-    login(token="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")
+    login(token="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")
     model_file = hf_hub_download(repo_id="mmassonn/Badbuzzert", filename="xgb_model.model")
     model = xgb.XGBClassifier()
     model.load_model(model_file)
@@ -128,7 +127,7 @@ def test_pre_processing(text):
 
 # Teste la fonction de prédiction de l'API
 def test_prediction(text):
-    login(token="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")
+    login(token="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")
     # Charger le Tokenizeur
     tfidf_vectorizer_file = hf_hub_download(repo_id="mmassonn/Badbuzzert", filename="tfidf_vectorizer.joblib")
     vectorizer = load(tfidf_vectorizer_file)
