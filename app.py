@@ -140,7 +140,7 @@ def predict():
 
 from azure.monitor.opentelemetry import configure_azure_monitor
 from opentelemetry import trace
-import logger
+import logging
 from http_exceptions import HTTPException
 
 # Configurer Azure Monitor pour OpenTelemetry
@@ -149,6 +149,8 @@ configure_azure_monitor(connection_string=f"InstrumentationKey={INSTRUMENTATION_
 
 # Obtenir un tracer pour générer des spans
 tracer = trace.get_tracer(__name__)
+# Initialisation correcte du logger
+logger = logging.getLogger(__name__)
 
 @app.post("/log_trace")
 def log_trace():
@@ -167,8 +169,8 @@ def log_trace():
             span.set_attribute("message", "Prédiction signalée comme incorrecte par l'utilisateur.")
 
             # Log dans la console pour confirmation
-            # logger.warning(f"Prédiction incorrecte signalée : {text} "
-            #               f"(Sentiment : {predicted_sentiment})")
+            logger.warning(f"Prédiction incorrecte signalée : {text} "
+                           f"(Sentiment : {predicted_sentiment})")
 
         return {"message": "Trace enregistrée avec succès dans Azure Application Insight"}
 
