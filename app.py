@@ -144,7 +144,7 @@ import logger
 from http_exceptions import HTTPException
 
 # Configurer Azure Monitor pour OpenTelemetry
-INSTRUMENTATION_KEY = "e3fd8a27-e455-40c0-ac70-001ae166765a"
+INSTRUMENTATION_KEY = "d4e25573-8ed0-4b34-ad9c-8b005e87abea"
 configure_azure_monitor(connection_string=f"InstrumentationKey={INSTRUMENTATION_KEY}"))
 
 # Obtenir un tracer pour générer des spans
