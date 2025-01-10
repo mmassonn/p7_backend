@@ -167,8 +167,8 @@ def log_trace():
             span.set_attribute("message", "Prédiction signalée comme incorrecte par l'utilisateur.")
 
             # Log dans la console pour confirmation
-            logger.warning(f"Prédiction incorrecte signalée : {text} "
-                           f"(Sentiment : {predicted_sentiment})")
+            # logger.warning(f"Prédiction incorrecte signalée : {text} "
+            #               f"(Sentiment : {predicted_sentiment})")
 
         return {"message": "Trace enregistrée avec succès dans Azure Application Insight"}
 
